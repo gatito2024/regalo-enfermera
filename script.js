@@ -66,7 +66,7 @@ function createScene() {
   clouds.length = 0;
   fireflies.length = 0;
 
-  const tulipCount = Math.floor(isMobile ? 56 : 170);
+  const tulipCount = Math.floor(isMobile ? 36 : 170);
   const palette = [
     ["#ff75bd", "#8b5cf6"],
     ["#ffd1e7", "#ff6fb4"],
@@ -78,13 +78,13 @@ function createScene() {
 
   for (let i = 0; i < tulipCount; i += 1) {
     const depth = Math.random();
-    const y = height * random(isMobile ? 0.82 : 0.72, 1.03);
-    const size = random(isMobile ? 7 : 10, isMobile ? 17 : 25) * (0.65 + depth * 0.9);
+    const y = height * random(isMobile ? 0.88 : 0.72, 1.04);
+    const size = random(isMobile ? 6 : 10, isMobile ? 14 : 25) * (0.65 + depth * 0.9);
     tulips.push({
       x: random(-40, width + 40),
       y,
       size,
-      height: random(isMobile ? 28 : 42, isMobile ? 64 : 100) * (0.72 + depth),
+      height: random(isMobile ? 18 : 42, isMobile ? 42 : 100) * (0.72 + depth),
       colors: pick(palette),
       sway: random(0.8, 1.8),
       phase: random(0, Math.PI * 2),
@@ -160,8 +160,8 @@ function drawStars(time) {
 
 function drawSun(time) {
   const x = width * 0.5 + pointer.x * 18;
-  const y = height * (isMobile ? 0.62 : 0.55) + pointer.y * (isMobile ? 5 : 10);
-  const radius = Math.min(width, height) * (isMobile ? 0.18 : 0.15);
+  const y = height * (isMobile ? 0.58 : 0.55) + pointer.y * (isMobile ? 4 : 10);
+  const radius = Math.min(width, height) * (isMobile ? 0.2 : 0.15);
 
   const halo = ctx.createRadialGradient(x, y, 0, x, y, radius * 3.1);
   halo.addColorStop(0, "rgba(255, 228, 174, 0.74)");
@@ -222,8 +222,8 @@ function drawMountainLayer(points, colorTop, colorBottom, offset, parallax) {
 }
 
 function drawMountains() {
-  const backOffset = isMobile ? height * 0.08 : 0;
-  const frontOffset = isMobile ? height * 0.1 : 18;
+  const backOffset = isMobile ? height * 0.04 : 0;
+  const frontOffset = isMobile ? height * 0.06 : 18;
 
   drawMountainLayer(
     [[0, 0.62], [0.12, 0.49], [0.24, 0.65], [0.38, 0.43], [0.52, 0.66], [0.68, 0.48], [0.82, 0.64], [1, 0.46]],
@@ -242,7 +242,7 @@ function drawMountains() {
 }
 
 function drawField() {
-  const fieldTop = height * (isMobile ? 0.78 : 0.66);
+  const fieldTop = height * (isMobile ? 0.85 : 0.66);
   const gradient = ctx.createLinearGradient(0, height * 0.7, 0, height);
   gradient.addColorStop(0, "rgba(19, 68, 59, 0.2)");
   gradient.addColorStop(0.45, "#123a36");

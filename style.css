@@ -1670,30 +1670,34 @@ h1.visible {
 }
 
 .is-mobile .poem-card {
-  left: 62%;
-  top: 30%;
-  width: 64vw;
+  left: 50%;
+  top: 16%;
+  width: min(88vw, 28rem);
   min-height: auto;
   transform: translate(-50%, -50%);
 }
 
 .is-mobile .poem-card h1 {
-  font-size: clamp(1.45rem, 7.2vw, 2.85rem);
-  line-height: 1.14;
+  font-size: clamp(1.8rem, 9vw, 3.2rem);
+  line-height: 1.08;
+  filter: none;
+  text-shadow:
+    0 3px 14px rgba(22, 8, 42, 0.72),
+    0 0 18px rgba(255, 255, 255, 0.24);
 }
 
 .is-mobile .final-card {
-  left: 62%;
-  top: 34%;
-  width: 64vw;
+  left: 50%;
+  top: 25%;
+  width: min(88vw, 28rem);
 }
 
 .is-mobile .nurse-wrap {
   left: 8vw;
   top: auto;
-  bottom: 27svh;
-  width: clamp(9rem, 35vw, 14rem);
-  z-index: 4;
+  bottom: 10svh;
+  width: clamp(8.2rem, 34vw, 11.5rem);
+  z-index: 6;
 }
 
 .is-mobile .dedication,
@@ -1704,36 +1708,36 @@ h1.visible {
 
 @media (max-width: 520px) {
   .is-mobile .poem-card {
-    left: 60%;
-    top: 28%;
-    width: 68vw;
+    left: 50%;
+    top: 16%;
+    width: 88vw;
   }
 
   .is-mobile .poem-card h1 {
-    font-size: clamp(1.45rem, 7.3vw, 2.45rem);
+    font-size: clamp(1.75rem, 8.8vw, 2.85rem);
   }
 
   .is-mobile .final-card {
-    left: 60%;
-    top: 33%;
-    width: 68vw;
+    left: 50%;
+    top: 25%;
+    width: 88vw;
   }
 
   .is-mobile .final-card h2 {
-    font-size: clamp(1.28rem, 6.5vw, 2.15rem);
+    font-size: clamp(1.45rem, 7vw, 2.25rem);
   }
 
   .is-mobile .nurse-wrap {
-    left: 7vw;
-    bottom: 28svh;
-    width: clamp(8.6rem, 38vw, 12.5rem);
+    left: 8vw;
+    bottom: 10svh;
+    width: clamp(8rem, 37vw, 11rem);
   }
 }
 
 @media (max-width: 380px) {
   .is-mobile .poem-card {
     left: 50%;
-    top: 25%;
+    top: 15%;
     width: 88vw;
   }
 
@@ -1743,7 +1747,7 @@ h1.visible {
 
   .is-mobile .final-card {
     left: 50%;
-    top: 29%;
+    top: 24%;
     width: 88vw;
   }
 
@@ -1752,13 +1756,133 @@ h1.visible {
   }
 
   .is-mobile .nurse-wrap {
-    left: 50%;
-    bottom: 20svh;
-    width: clamp(8rem, 42vw, 11rem);
-    transform: translate(-50%, 1.25rem) scale(0.98);
+    left: 7vw;
+    bottom: 9svh;
+    width: clamp(7.3rem, 36vw, 9.2rem);
+    transform: translateY(1.25rem) scale(0.98);
   }
 
   .is-mobile .letter-scene.done ~ .nurse-wrap {
-    transform: translate(-50%, 0) scale(1);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Senior mobile composition lock */
+@media (max-width: 768px) {
+  html.is-mobile,
+  .is-mobile body {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .is-mobile .poem-card {
+    left: 50%;
+    top: 14svh;
+    width: min(86vw, 30rem);
+    min-height: 0;
+    gap: 0.45rem;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+  }
+
+  .is-mobile .poem-card h1 {
+    font-size: clamp(1.7rem, 8.2vw, 3rem);
+    line-height: 1.08;
+    filter: blur(0);
+    text-shadow:
+      0 3px 12px rgba(18, 8, 42, 0.78),
+      0 0 14px rgba(255, 255, 255, 0.2);
+  }
+
+  .is-mobile .dedication,
+  .is-mobile .template-name {
+    font-size: clamp(0.6rem, 2.7vw, 0.78rem);
+    line-height: 1.15;
+    opacity: 0.76;
+    letter-spacing: 0.08em;
+  }
+
+  .is-mobile .nurse-wrap {
+    left: clamp(1rem, 6vw, 2.2rem);
+    top: auto;
+    bottom: clamp(4.4rem, 10svh, 6.2rem);
+    width: clamp(7.2rem, 31vw, 10.2rem);
+    z-index: 6;
+    transform: translateY(1rem) scale(0.98);
+  }
+
+  .is-mobile .letter-scene.done ~ .nurse-wrap {
+    transform: translateY(0) scale(1);
+  }
+
+  .is-mobile .nurse {
+    filter:
+      drop-shadow(0 12px 22px rgba(14, 4, 28, 0.68))
+      drop-shadow(0 0 14px rgba(255, 143, 199, 0.28));
+  }
+
+  .is-mobile .nurse-wrap::before {
+    width: clamp(1.55rem, 7vw, 2.2rem);
+    left: 66%;
+    top: -18%;
+    opacity: 0.7;
+  }
+
+  .is-mobile .nurse-wrap::after {
+    left: calc(66% + clamp(0.75rem, 3.5vw, 1.05rem));
+    top: calc(-18% + clamp(1.5rem, 7vw, 2.1rem));
+    height: clamp(1.8rem, 7vw, 2.5rem);
+    opacity: 0.6;
+  }
+
+  .is-mobile .final-card {
+    left: 50%;
+    top: 22svh;
+    width: min(86vw, 30rem);
+    padding: 0.4rem;
+    z-index: 5;
+  }
+
+  .is-mobile .final-card h2 {
+    font-size: clamp(1.45rem, 7.1vw, 2.55rem);
+    line-height: 1.14;
+    text-shadow:
+      0 3px 12px rgba(18, 8, 42, 0.78),
+      0 0 14px rgba(255, 255, 255, 0.18);
+  }
+
+  .is-mobile .final-lines {
+    gap: 0.35rem;
+  }
+
+  .is-mobile .final-card p {
+    font-size: clamp(0.62rem, 2.7vw, 0.82rem);
+    opacity: 0.78;
+  }
+}
+
+@media (max-width: 390px) {
+  .is-mobile .poem-card {
+    top: 13svh;
+    width: 88vw;
+  }
+
+  .is-mobile .poem-card h1 {
+    font-size: clamp(1.55rem, 7.8vw, 2.55rem);
+  }
+
+  .is-mobile .nurse-wrap {
+    left: clamp(0.75rem, 5vw, 1.6rem);
+    bottom: clamp(4rem, 9svh, 5.4rem);
+    width: clamp(6.6rem, 30vw, 8.6rem);
+  }
+
+  .is-mobile .final-card {
+    top: 21svh;
+    width: 88vw;
+  }
+
+  .is-mobile .final-card h2 {
+    font-size: clamp(1.3rem, 6.6vw, 2.15rem);
   }
 }
