@@ -33,6 +33,7 @@ let height = 0;
 let dpr = 1;
 let poemIndex = 0;
 let lastTime = 0;
+let isMobile = false;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -50,6 +51,8 @@ function resize() {
   dpr = Math.min(window.devicePixelRatio || 1, 2);
   width = window.innerWidth;
   height = window.innerHeight;
+  isMobile = width <= 768;
+  document.documentElement.classList.toggle("is-mobile", isMobile);
   canvas.width = Math.floor(width * dpr);
   canvas.height = Math.floor(height * dpr);
   canvas.style.width = `${width}px`;
@@ -63,7 +66,7 @@ function createScene() {
   clouds.length = 0;
   fireflies.length = 0;
 
-  const tulipCount = Math.floor(width < 700 ? 95 : 170);
+  const tulipCount = Math.floor(isMobile ? 56 : 170);
   const palette = [
     ["#ff75bd", "#8b5cf6"],
     ["#ffd1e7", "#ff6fb4"],
@@ -75,13 +78,13 @@ function createScene() {
 
   for (let i = 0; i < tulipCount; i += 1) {
     const depth = Math.random();
-    const y = height * random(0.72, 1.02);
-    const size = random(10, 25) * (0.65 + depth * 0.9);
+    const y = height * random(isMobile ? 0.82 : 0.72, 1.03);
+    const size = random(isMobile ? 7 : 10, isMobile ? 17 : 25) * (0.65 + depth * 0.9);
     tulips.push({
       x: random(-40, width + 40),
       y,
       size,
-      height: random(42, 100) * (0.72 + depth),
+      height: random(isMobile ? 28 : 42, isMobile ? 64 : 100) * (0.72 + depth),
       colors: pick(palette),
       sway: random(0.8, 1.8),
       phase: random(0, Math.PI * 2),
@@ -92,23 +95,23 @@ function createScene() {
 
   tulips.sort((a, b) => a.y - b.y);
 
-  const cloudCount = width < 700 ? 5 : 8;
+  const cloudCount = isMobile ? 4 : 8;
   for (let i = 0; i < cloudCount; i += 1) {
     clouds.push({
       x: random(-width * 0.2, width * 1.1),
-      y: random(height * 0.1, height * 0.38),
-      scale: random(0.7, 1.7),
+      y: random(height * 0.08, height * (isMobile ? 0.3 : 0.38)),
+      scale: random(isMobile ? 0.55 : 0.7, isMobile ? 1.15 : 1.7),
       speed: random(4, 13),
       alpha: random(0.15, 0.34)
     });
   }
 
-  const flyCount = width < 700 ? 38 : 70;
+  const flyCount = isMobile ? 32 : 70;
   for (let i = 0; i < flyCount; i += 1) {
     fireflies.push({
       x: random(0, width),
-      y: random(height * 0.18, height * 0.82),
-      r: random(1.1, 3.2),
+      y: random(height * 0.16, height * (isMobile ? 0.72 : 0.82)),
+      r: random(1.1, isMobile ? 2.4 : 3.2),
       phase: random(0, Math.PI * 2),
       speed: random(0.25, 0.8),
       drift: random(8, 28),
@@ -157,8 +160,8 @@ function drawStars(time) {
 
 function drawSun(time) {
   const x = width * 0.5 + pointer.x * 18;
-  const y = height * 0.55 + pointer.y * 10;
-  const radius = Math.min(width, height) * 0.15;
+  const y = height * (isMobile ? 0.62 : 0.55) + pointer.y * (isMobile ? 5 : 10);
+  const radius = Math.min(width, height) * (isMobile ? 0.18 : 0.15);
 
   const halo = ctx.createRadialGradient(x, y, 0, x, y, radius * 3.1);
   halo.addColorStop(0, "rgba(255, 228, 174, 0.74)");
@@ -185,8 +188,8 @@ function drawCloud(cloud, time) {
     cloud.x = -220 * cloud.scale;
   }
 
-  const x = cloud.x + pointer.x * cloud.scale * 8;
-  const y = cloud.y + Math.sin(time * 0.0005 + cloud.scale) * 5 + pointer.y * cloud.scale * 5;
+  const x = cloud.x + pointer.x * cloud.scale * (isMobile ? 4 : 8);
+  const y = cloud.y + Math.sin(time * 0.0005 + cloud.scale) * 5 + pointer.y * cloud.scale * (isMobile ? 2 : 5);
   const s = cloud.scale;
 
   ctx.save();
@@ -219,35 +222,39 @@ function drawMountainLayer(points, colorTop, colorBottom, offset, parallax) {
 }
 
 function drawMountains() {
+  const backOffset = isMobile ? height * 0.08 : 0;
+  const frontOffset = isMobile ? height * 0.1 : 18;
+
   drawMountainLayer(
     [[0, 0.62], [0.12, 0.49], [0.24, 0.65], [0.38, 0.43], [0.52, 0.66], [0.68, 0.48], [0.82, 0.64], [1, 0.46]],
     "#2c174d",
     "#130a27",
-    0,
-    -10
+    backOffset,
+    isMobile ? -5 : -10
   );
   drawMountainLayer(
     [[0, 0.72], [0.1, 0.56], [0.23, 0.76], [0.36, 0.52], [0.49, 0.75], [0.63, 0.55], [0.77, 0.72], [0.9, 0.5], [1, 0.68]],
     "#1a102d",
     "#070611",
-    18,
-    -22
+    frontOffset,
+    isMobile ? -10 : -22
   );
 }
 
 function drawField() {
+  const fieldTop = height * (isMobile ? 0.78 : 0.66);
   const gradient = ctx.createLinearGradient(0, height * 0.7, 0, height);
   gradient.addColorStop(0, "rgba(19, 68, 59, 0.2)");
   gradient.addColorStop(0.45, "#123a36");
   gradient.addColorStop(1, "#061615");
   ctx.fillStyle = gradient;
-  ctx.fillRect(0, height * 0.66, width, height * 0.34);
+  ctx.fillRect(0, fieldTop, width, height - fieldTop);
 }
 
 function drawTulip(tulip, time) {
   const sway = Math.sin(time * 0.0013 * tulip.sway + tulip.phase) * 0.14 + tulip.lean;
-  const x = tulip.x + pointer.x * tulip.depth * 18;
-  const y = tulip.y + pointer.y * tulip.depth * 8;
+  const x = tulip.x + pointer.x * tulip.depth * (isMobile ? 8 : 18);
+  const y = tulip.y + pointer.y * tulip.depth * (isMobile ? 4 : 8);
   const stemHeight = tulip.height;
   const bloom = tulip.size;
 
@@ -302,8 +309,8 @@ function drawTulip(tulip, time) {
 function drawFireflies(time) {
   fireflies.forEach((fly, index) => {
     const pulse = 0.4 + Math.sin(time * 0.002 * fly.speed + fly.phase) * 0.35;
-    const x = fly.x + Math.sin(time * 0.0007 + fly.phase) * fly.drift + pointer.x * 16;
-    const y = fly.y + Math.cos(time * 0.0008 + index) * fly.drift * 0.45 + pointer.y * 10;
+    const x = fly.x + Math.sin(time * 0.0007 + fly.phase) * fly.drift + pointer.x * (isMobile ? 7 : 16);
+    const y = fly.y + Math.cos(time * 0.0008 + index) * fly.drift * 0.45 + pointer.y * (isMobile ? 4 : 10);
 
     ctx.save();
     ctx.globalAlpha = Math.max(0.08, pulse);

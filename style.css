@@ -28,7 +28,7 @@ body {
 
 .experience {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   min-height: 100svh;
   overflow: hidden;
@@ -38,7 +38,7 @@ body {
 #sunsetCanvas {
   position: absolute;
   inset: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   display: block;
 }
@@ -1666,5 +1666,99 @@ h1.visible {
 
   .final-card h2 {
     font-size: clamp(1.35rem, 6.6vw, 2.2rem);
+  }
+}
+
+.is-mobile .poem-card {
+  left: 62%;
+  top: 30%;
+  width: 64vw;
+  min-height: auto;
+  transform: translate(-50%, -50%);
+}
+
+.is-mobile .poem-card h1 {
+  font-size: clamp(1.45rem, 7.2vw, 2.85rem);
+  line-height: 1.14;
+}
+
+.is-mobile .final-card {
+  left: 62%;
+  top: 34%;
+  width: 64vw;
+}
+
+.is-mobile .nurse-wrap {
+  left: 8vw;
+  top: auto;
+  bottom: 27svh;
+  width: clamp(9rem, 35vw, 14rem);
+  z-index: 4;
+}
+
+.is-mobile .dedication,
+.is-mobile .template-name {
+  font-size: clamp(0.62rem, 2.4vw, 0.8rem);
+  line-height: 1.2;
+}
+
+@media (max-width: 520px) {
+  .is-mobile .poem-card {
+    left: 60%;
+    top: 28%;
+    width: 68vw;
+  }
+
+  .is-mobile .poem-card h1 {
+    font-size: clamp(1.45rem, 7.3vw, 2.45rem);
+  }
+
+  .is-mobile .final-card {
+    left: 60%;
+    top: 33%;
+    width: 68vw;
+  }
+
+  .is-mobile .final-card h2 {
+    font-size: clamp(1.28rem, 6.5vw, 2.15rem);
+  }
+
+  .is-mobile .nurse-wrap {
+    left: 7vw;
+    bottom: 28svh;
+    width: clamp(8.6rem, 38vw, 12.5rem);
+  }
+}
+
+@media (max-width: 380px) {
+  .is-mobile .poem-card {
+    left: 50%;
+    top: 25%;
+    width: 88vw;
+  }
+
+  .is-mobile .poem-card h1 {
+    font-size: clamp(1.35rem, 8vw, 2.35rem);
+  }
+
+  .is-mobile .final-card {
+    left: 50%;
+    top: 29%;
+    width: 88vw;
+  }
+
+  .is-mobile .final-card h2 {
+    font-size: clamp(1.25rem, 7vw, 2.1rem);
+  }
+
+  .is-mobile .nurse-wrap {
+    left: 50%;
+    bottom: 20svh;
+    width: clamp(8rem, 42vw, 11rem);
+    transform: translate(-50%, 1.25rem) scale(0.98);
+  }
+
+  .is-mobile .letter-scene.done ~ .nurse-wrap {
+    transform: translate(-50%, 0) scale(1);
   }
 }
