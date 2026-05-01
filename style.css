@@ -1508,3 +1508,163 @@ h1.visible {
     font-size: clamp(1.45rem, 7.6vw, 2.55rem);
   }
 }
+
+/* Mobile responsive pass */
+@media (max-width: 768px) {
+  .experience {
+    min-height: 100svh;
+  }
+
+  .letter-scene {
+    padding: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .letter-scene .neon-box {
+    left: 50%;
+    top: 50%;
+    width: min(92vw, 42rem);
+    min-height: min(78svh, 42rem);
+    padding: clamp(1.1rem, 4vw, 1.8rem);
+    gap: clamp(0.75rem, 2.2vh, 1.15rem);
+    transform: translate(-50%, -50%);
+  }
+
+  .letter-scene .letter-line {
+    width: min(100%, 38rem);
+    gap: clamp(0.5rem, 1.8vh, 0.85rem);
+    padding: 0;
+  }
+
+  .letter-scene .letter-row {
+    gap: clamp(0.35rem, 1.8vw, 0.65rem);
+  }
+
+  .letter-scene .word {
+    gap: clamp(0.08rem, 0.6vw, 0.18rem);
+  }
+
+  .letter-scene .title-row .neon-letter {
+    font-size: clamp(2.35rem, 13vw, 4.35rem);
+    line-height: 1;
+  }
+
+  .letter-scene .subtitle-row .neon-letter,
+  .letter-scene .heart-symbol {
+    font-size: clamp(1.15rem, 6.6vw, 2.25rem);
+    line-height: 1.05;
+  }
+
+  .letter-scene .worker-message {
+    width: min(100%, 34rem);
+    font-size: clamp(1.45rem, 7.3vw, 2.6rem);
+    line-height: 1.15;
+    margin: clamp(0.25rem, 1vh, 0.7rem) 0 0;
+  }
+
+  .poem-card {
+    top: clamp(1rem, 4svh, 2.4rem);
+    width: min(92vw, 32rem);
+    min-height: auto;
+    gap: clamp(0.45rem, 1.5vh, 0.8rem);
+  }
+
+  .poem-card h1 {
+    font-size: clamp(1.7rem, 9vw, 3.15rem);
+    line-height: 1.12;
+  }
+
+  .dedication,
+  .template-name {
+    font-size: clamp(0.66rem, 2.8vw, 0.82rem);
+  }
+
+  .nurse-wrap {
+    left: clamp(0.75rem, 5vw, 2rem);
+    top: auto;
+    bottom: clamp(5.2rem, 13svh, 7.4rem);
+    width: clamp(7rem, 31vw, 10.5rem);
+    transform: translateY(1.25rem) scale(0.98);
+  }
+
+  .letter-scene.done ~ .nurse-wrap {
+    transform: translateY(0) scale(1);
+  }
+
+  @keyframes nurseFloat {
+    0%,
+    100% {
+      translate: 0 0;
+      rotate: 0deg;
+    }
+    50% {
+      translate: 0 -0.55rem;
+      rotate: 0deg;
+    }
+  }
+
+  .nurse-wrap::before {
+    left: 68%;
+    top: -22%;
+    width: clamp(1.65rem, 8vw, 2.35rem);
+    font-size: clamp(0.9rem, 4vw, 1.25rem);
+  }
+
+  .nurse-wrap::after {
+    left: calc(68% + clamp(0.8rem, 4vw, 1.15rem));
+    top: calc(-22% + clamp(1.6rem, 8vw, 2.25rem));
+    height: clamp(1.9rem, 8vw, 2.8rem);
+  }
+
+  .final-card {
+    left: 50%;
+    top: clamp(34%, 37svh, 42%);
+    width: min(88vw, 31rem);
+    padding: clamp(0.5rem, 2vw, 0.9rem);
+    transform: translate(-50%, -50%) translateY(1rem) scale(0.98);
+  }
+
+  .final-card.visible {
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+
+  .final-card h2 {
+    font-size: clamp(1.45rem, 7vw, 2.55rem);
+    line-height: 1.18;
+  }
+
+  .final-lines {
+    gap: clamp(0.35rem, 1.2vh, 0.7rem);
+  }
+
+  .final-card p {
+    font-size: clamp(0.68rem, 2.8vw, 0.86rem);
+    letter-spacing: 0.1em;
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .letter-scene .neon-box {
+    min-height: min(80svh, 38rem);
+  }
+
+  .letter-scene .title-row .neon-letter {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+  }
+
+  .letter-scene .subtitle-row .neon-letter,
+  .letter-scene .heart-symbol {
+    font-size: clamp(1rem, 6vw, 1.75rem);
+  }
+
+  .poem-card h1 {
+    font-size: clamp(1.55rem, 8.4vw, 2.6rem);
+  }
+
+  .final-card h2 {
+    font-size: clamp(1.35rem, 6.6vw, 2.2rem);
+  }
+}
