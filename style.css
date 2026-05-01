@@ -5,6 +5,11 @@
   --violet: #a78bfa;
   --font-ui: "Poppins", "Segoe UI", Arial, sans-serif;
   --font-script: "Dancing Script", "Segoe Script", "Brush Script MT", cursive;
+  --canvas-width: 100vw;
+  --canvas-height: 100vh;
+  --poem-top: 16vh;
+  --nurse-bottom: 14vh;
+  --mobile-scale: 1;
 }
 
 * {
@@ -258,27 +263,31 @@ body {
 .poem-card {
   position: absolute;
   left: 50%;
-  top: clamp(30px, 7vh, 76px);
-  width: min(760px, calc(100vw - 2.25rem));
-  min-height: 210px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 0.9rem;
+  top: var(--poem-top);
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 32rem;
   text-align: center;
-  transform: translateX(-50%);
-  pointer-events: none;
-  text-shadow: 0 10px 28px rgba(27, 11, 50, 0.55);
-  z-index: 2;
+  z-index: 10;
+}
+
+.poem-card::before {
+  content: "";
+  position: absolute;
+  inset: -1.2rem -1.8rem;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(22, 10, 48, 0.34), rgba(22, 10, 48, 0.08) 58%, transparent 74%);
+  filter: blur(2px);
+  opacity: 0.76;
+  z-index: -1;
 }
 
 .poem-card.finished {
   opacity: 0;
-  transform: translateX(-50%) translateY(-0.9rem);
+  transform: translate(-50%, -50%) translateY(-0.9rem);
   transition: opacity 900ms ease, transform 900ms ease;
 }
 
-.template-name,
 .dedication {
   margin: 0;
   color: var(--soft-white);
@@ -302,6 +311,7 @@ h1 {
   font-weight: 500;
   line-height: 1.12;
   text-wrap: balance;
+  overflow-wrap: normal;
   opacity: 0;
   filter: blur(8px);
   transform: translateY(1rem) scale(0.98);
@@ -373,11 +383,54 @@ h1.visible {
   animation: stringSway 2.9s ease-in-out infinite;
 }
 
+.heart-particles {
+  position: absolute;
+  left: 76%;
+  top: -19%;
+  width: 4rem;
+  height: 5rem;
+  pointer-events: none;
+}
+
+.heart-particles i {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0.55rem;
+  aspect-ratio: 1;
+  color: rgba(255, 214, 239, 0.82);
+  font-style: normal;
+  filter: drop-shadow(0 0 8px rgba(255, 143, 199, 0.5));
+  opacity: 0;
+  animation: heartParticle 4.8s ease-in-out infinite;
+}
+
+.heart-particles i::before {
+  content: "\2665";
+}
+
+.heart-particles i:nth-child(1) {
+  margin-left: -0.9rem;
+  animation-delay: 0.15s;
+}
+
+.heart-particles i:nth-child(2) {
+  margin-left: 0.2rem;
+  color: rgba(216, 197, 255, 0.82);
+  animation-delay: 1.55s;
+}
+
+.heart-particles i:nth-child(3) {
+  margin-left: 1.05rem;
+  font-size: 0.85rem;
+  animation-delay: 3s;
+}
+
 .final-card {
   position: absolute;
-  left: 53%;
-  top: 40%;
-  width: min(720px, calc(100vw - 330px));
+  left: 58%;
+  top: 42%;
+  width: min(720px, 58vw);
   display: grid;
   place-items: center;
   gap: 0.9rem;
@@ -390,6 +443,17 @@ h1.visible {
   pointer-events: none;
   z-index: 3;
   text-shadow: 0 10px 28px rgba(27, 11, 50, 0.55);
+}
+
+.final-card::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem -2rem;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(22, 10, 48, 0.42), rgba(22, 10, 48, 0.12) 62%, transparent 76%);
+  filter: blur(2px);
+  opacity: 0.86;
+  z-index: -1;
 }
 
 .final-card.visible {
@@ -444,6 +508,16 @@ h1.visible {
     0 0 7px rgba(255, 255, 255, 0.48),
     0 0 16px rgba(255, 117, 189, 0.3),
     0 0 28px rgba(184, 129, 255, 0.2);
+}
+
+.soft-heart {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.74em;
+  line-height: 1;
+  vertical-align: 0.06em;
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.42));
+  animation: heartPulse 1.6s ease-in-out infinite;
 }
 
 .final-card p {
@@ -546,6 +620,36 @@ h1.visible {
   }
 }
 
+@keyframes heartParticle {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.74) rotate(0deg);
+  }
+  32% {
+    opacity: 0.85;
+  }
+  72% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--particle-x, 0.45rem), -4.8rem, 0) scale(1.18) rotate(16deg);
+  }
+}
+
+.heart-particles i:nth-child(1) {
+  --particle-x: -0.65rem;
+}
+
+.heart-particles i:nth-child(2) {
+  --particle-x: 0.25rem;
+}
+
+.heart-particles i:nth-child(3) {
+  --particle-x: 0.85rem;
+}
+
 @keyframes finalLineIn {
   to {
     opacity: 1;
@@ -618,17 +722,22 @@ h1.visible {
 
   .poem-card {
     left: 50%;
-    top: 17svh;
-    width: min(86vw, 30rem);
+    top: var(--poem-top);
+    width: min(88vw, 31rem);
     min-height: 0;
-    gap: 0.45rem;
+    gap: clamp(0.35rem, 1.1vh, 0.55rem);
     transform: translate(-50%, -50%);
     z-index: 5;
   }
 
+  .poem-card::before {
+    inset: -0.75rem -1rem;
+    opacity: 0.72;
+  }
+
   .poem-card h1 {
-    font-size: clamp(1.85rem, 8.4vw, 3rem);
-    line-height: 1.08;
+    font-size: clamp(1.65rem, 7.4vw, 2.85rem);
+    line-height: 1.1;
     filter: none;
     transform: translateY(0) scale(1);
     text-shadow:
@@ -636,7 +745,6 @@ h1.visible {
       0 0 14px rgba(255, 255, 255, 0.22);
   }
 
-  .template-name,
   .dedication {
     font-size: clamp(0.62rem, 2.7vw, 0.78rem);
     letter-spacing: 0.08em;
@@ -644,10 +752,10 @@ h1.visible {
   }
 
   .nurse-wrap {
-    left: 8vw;
+    left: clamp(0.85rem, 7vw, 2.4rem);
     top: auto;
-    bottom: 7.5svh;
-    width: clamp(8rem, 33vw, 10.8rem);
+    bottom: max(var(--nurse-bottom), 4.2rem);
+    width: clamp(9.4rem, 39vw, 13.2rem);
     z-index: 6;
     transform: translateY(1rem) scale(0.98);
   }
@@ -663,30 +771,42 @@ h1.visible {
   }
 
   .nurse-wrap::before {
-    left: 66%;
-    top: -18%;
-    width: clamp(1.5rem, 7vw, 2.1rem);
-    opacity: 0.7;
+    left: 68%;
+    top: -17%;
+    width: clamp(1.65rem, 7vw, 2.25rem);
+    opacity: 0.78;
   }
 
   .nurse-wrap::after {
-    left: calc(66% + clamp(0.75rem, 3.5vw, 1.05rem));
-    top: calc(-18% + clamp(1.45rem, 7vw, 2rem));
-    height: clamp(1.8rem, 7vw, 2.45rem);
+    left: calc(68% + clamp(0.82rem, 3.5vw, 1.1rem));
+    top: calc(-17% + clamp(1.55rem, 7vw, 2.12rem));
+    height: clamp(1.9rem, 7vw, 2.55rem);
     opacity: 0.6;
+  }
+
+  .heart-particles {
+    left: 74%;
+    top: -13%;
+    width: 3.2rem;
+    height: 4.2rem;
   }
 
   .final-card {
     left: 50%;
-    top: 22svh;
-    width: min(86vw, 30rem);
+    top: var(--poem-top);
+    width: min(88vw, 31rem);
     padding: 0.4rem;
     z-index: 5;
   }
 
+  .final-card::before {
+    inset: -0.9rem -1rem;
+    opacity: 0.78;
+  }
+
   .final-card h2 {
-    font-size: clamp(1.45rem, 7vw, 2.5rem);
-    line-height: 1.14;
+    font-size: clamp(1.32rem, 6.25vw, 2.32rem);
+    line-height: 1.16;
   }
 
   .final-card p {
@@ -708,29 +828,30 @@ h1.visible {
   }
 }
 
-@media (max-width: 390px) {
+@media (max-height: 720px) and (max-width: 768px) {
   .poem-card {
-    top: 16svh;
-    width: 88vw;
+    top: var(--poem-top);
   }
 
   .poem-card h1 {
-    font-size: clamp(1.6rem, 8vw, 2.55rem);
+    font-size: clamp(1.28rem, 6.7vw, 2.1rem);
+  }
+
+  .dedication {
+    font-size: clamp(0.56rem, 2.45vw, 0.72rem);
   }
 
   .nurse-wrap {
-    left: 7vw;
-    bottom: 7svh;
-    width: clamp(7.2rem, 32vw, 9.4rem);
+    bottom: max(var(--nurse-bottom), 2.6rem);
+    width: clamp(7.8rem, 34vw, 9.8rem);
   }
 
   .final-card {
-    top: 21svh;
-    width: 88vw;
+    top: var(--poem-top);
   }
 
   .final-card h2 {
-    font-size: clamp(1.3rem, 6.6vw, 2.15rem);
+    font-size: clamp(1.08rem, 5.7vw, 1.8rem);
   }
 }
 
